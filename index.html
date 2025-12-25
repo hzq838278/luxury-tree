@@ -216,7 +216,7 @@
             
             switchTheme(0);
 
-            initMediaPipe().catch(console.warn);
+            // initMediaPipe().catch(console.warn);
 
             const loader = document.getElementById('loader');
             loader.style.opacity = 0;
@@ -1064,6 +1064,32 @@
     }
 
     loadPhotosFromImagesFolder(); // 👈 就在这里调用
+    /*********************************
+ * 启用手势控制（iPad 必须点击）
+ *********************************/
+const btnGesture = document.getElementById('btn-start-gesture');
+if (btnGesture) {
+    btnGesture.addEventListener('click', async () => {
+        try {
+            await initMediaPipe();
+            btnGesture.style.display = 'none';
+        } catch (e) {
+            alert('当前设备不支持手势控制');
+            console.error(e);
+        }
+    });
+}
     </script>
+    <button id="btn-start-gesture"
+        style="
+        position:fixed;
+        bottom:20px;
+        left:50%;
+        transform:translateX(-50%);
+        z-index:999;
+        padding:10px 18px;
+        font-size:14px;">
+  启用手势控制
+    </button>
 </body>
 </html>
